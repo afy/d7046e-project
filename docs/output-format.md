@@ -4,6 +4,7 @@ This file lists the JSON structure for the model output files. When a model is r
 - params : A dictionary of model parameters, for example `"params" : {"w1":..., "w2":..., }`
 - val_loss : A list of validation losses recorded during training (every epoch)
 - tr_loss : A list of training losses recorded during training (every epoch)
+- confusion_matrix : Matrix with dims (x, x) where x is nr of labels.
 
 For the classification task (cloudy/clear) add the following:
 - y : Input labels
