@@ -4,5 +4,6 @@ matplotlib
 xarray==2024.2.0
 matplotlib==3.8.3
 torchvision==0.17.0
+netCDF4==1.6.5
 
 git+https://github.com/facebookresearch/segment-anything.git
