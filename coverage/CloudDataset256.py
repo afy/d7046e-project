@@ -33,6 +33,5 @@ class CloudDataset(Dataset):
             image = self.transform["image"](image)
             mask = self.transform["mask"](mask)
 
-        onehot_mask =F.one_hot((mask[0]).to(torch.int64),num_classes=6).permute(2,0,1)
 
-        return image,onehot_mask
+        return image,mask

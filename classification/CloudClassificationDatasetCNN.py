@@ -4,6 +4,7 @@ from torch.utils.data import Dataset
 import numpy as np
 import torch
 import torchvision
+import torchvision.transforms.v2 as v2
 
 #Creates a dataset for our cloud images
 class CloudClassificationDataset(Dataset):
@@ -35,10 +36,12 @@ class CloudClassificationDataset(Dataset):
 
         # Stacks, normalizes, and cut the image to a (20, 20, C) format between 0 and 1
         imagergb = np.dstack(channel_tup)
-        cli=1
+        cli=5
         image = torch.from_numpy(np.clip((imagergb-np.percentile(imagergb,cli))/(np.percentile(imagergb,100-cli)-np.percentile(imagergb,cli)),0, 1)[:20,:20,:]).permute(2,0,1)
         
         if self.transform is not None:
             image = self.transform(image)
-
-        return image,torch.nn.functional.one_hot(torch.Tensor([int(label)]).to(torch.int64),2)[0]
+            img_disp = image
+            image  = v2.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])(image)
+        
+        return image,torch.nn.functional.one_hot(torch.Tensor([int(label)]).to(torch.int64),2)[0],img_disp
